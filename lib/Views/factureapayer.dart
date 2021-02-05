@@ -104,7 +104,7 @@ Facture item = Facture.fromJson(token2);print(item.agenceName);print(item.montan
                                 color: Colors.white,
                               ),
                               decoration: InputDecoration(
-                               prefixIcon: Icon(Icons.money),
+                               prefixIcon: Icon(Icons.attach_money),
                                 filled: false,
                                 contentPadding: EdgeInsets.all(10),
                                 enabledBorder: _borders,
@@ -183,7 +183,7 @@ Facture item = Facture.fromJson(token2);print(item.agenceName);print(item.montan
                               ),
                               decoration: InputDecoration(
                                 filled: false,
-                                prefixIcon: Icon(Icons.support_agent),
+                                prefixIcon: Icon(Icons.device_hub),
                            
                                 contentPadding: EdgeInsets.all(10),
                                 enabledBorder: _borders,
@@ -199,13 +199,15 @@ Facture item = Facture.fromJson(token2);print(item.agenceName);print(item.montan
                           
                           Container( 
                             width: MediaQuery.of(context).size.width * 0.5,
-                            child:  FlatButton(child: 
+
+                            child:  FlatButton(
+                                child:
                             Text('payer',
-                            style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            
-            
-            height: 40,minWidth: 40, shape: new RoundedRectangleBorder(
+                            style: TextStyle(color: Colors.white, fontSize: 25)
+                            ),
+
+
+             shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
     focusColor: Colors.blueGrey, onPressed: () {} ))
                          ],
@@ -227,7 +229,7 @@ Facture item = Facture.fromJson(token2);print(item.agenceName);print(item.montan
           Align(
             alignment: Alignment(0, -0.7),
             child: Icon(
-              Icons.bakery_dining,
+              Icons.shopping_basket,
               color: Colors.white,
               size: 90,
             ),

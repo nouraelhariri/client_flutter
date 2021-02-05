@@ -31,35 +31,35 @@ class Client {
  
   
   // constructor
-  
+
   Client.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    phone=json['phone'];
-    password = json['password'];
-    solde=json['solde'];
-    email = json['email'];
-    factures = json['factures'];
-    modified=json['modified'];
+    id = json["data"]['id'];
+    firstName = json["data"]['firstName'];
+    lastName = json["data"]['lastName'];
+    phone=json["data"]['phone'];
+    password = json["data"]['password'];
+    solde=json["data"]['solde'];
+    email = json["data"]['email'];
+    factures = json["data"]['factures'];
+    modified=json["data"]['modified'];
   }
   
   Client ({this.id, this.firstName,this.lastName,this.email,this.password,this.phone,this.modified,this.solde,this.factures});
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data["id"] = id;
-    data["firstName"] = this.firstName;
-    data["lastName"] = this.lastName;
-    data["email"] = this.email;
-    data["password"] = this.password;
-    data["phone"] = this.phone;
-    data["modified"] = this.modified;
-    data["solde"] = this.solde;
-    data["factures"] = this.factures;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data["data"]["id"] = id;
+    data["data"]["firstName"] = this.firstName;
+    data["data"]["lastName"] = this.lastName;
+    data["data"]["email"] = this.email;
+    data["data"]["password"] = this.password;
+    data["data"]["phone"] = this.phone;
+    data["data"]["modified"] = this.modified;
+    data["data"]["solde"] = this.solde;
+    data["data"]["factures"] = this.factures;
    
     
     return data;
   }
-    
+
 }

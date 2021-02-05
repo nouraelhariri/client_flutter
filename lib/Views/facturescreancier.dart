@@ -57,7 +57,7 @@ return item;
     
          subtitle: Text(litems[index].description + "                    cliquer ici pour payer "),
         
-         leading: Icon(Icons.money_rounded),
+         leading: Icon(Icons.attach_money),
          isThreeLine: true,
          onTap: () async {if(img==null){
            img='../assets/money.jpg';
@@ -118,7 +118,7 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             
-            leading: Icon(Icons.warning_sharp),
+            leading: Icon(Icons.warning),
             title: Text('historique'),
             onTap: () => {Navigator.push(
     context,

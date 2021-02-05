@@ -47,7 +47,8 @@ Client item = Client.fromJson(token2);print(item.password);print(item.modified);
       ),
       backgroundColor: const Color(0xff435c59),
       resizeToAvoidBottomInset: false,
-      body: Stack(
+      body: SingleChildScrollView(
+      child: Stack(
         children: <Widget>[
           Positioned.fill(
             child: Container(
@@ -181,7 +182,7 @@ Client item = Client.fromJson(token2);print(item.password);print(item.modified);
                               ),
                               decoration: InputDecoration(
                                 filled: false,
-                                prefixIcon: Icon(Icons.money),
+                                prefixIcon: Icon(Icons.attach_money),
                            
                                 contentPadding: EdgeInsets.all(10),
                                 enabledBorder: _borders,
@@ -220,7 +221,7 @@ Client item = Client.fromJson(token2);print(item.password);print(item.modified);
           )
         ],
       ),
-    );
+    ));
   }
   
   
