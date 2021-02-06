@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Views/login.dart';
 
 import 'Views/SplashS.dart';
-import 'Views/login.dart';
+
 
 void main() => runApp(MyApp());
 

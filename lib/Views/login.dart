@@ -1,13 +1,17 @@
 import 'dart:convert';
-import 'dart:html';
+import 'dart:io';
+import 'package:flutter_application_1/Views/Profile.dart';
+import 'package:flutter_application_1/Views/pageperso.dart';
+import 'package:flutter_application_1/Views/popUp.dart';
+import 'package:flutter_application_1/beans/ApiError.dart';
+import 'package:flutter_application_1/beans/ApiResponse.dart';
 import 'package:flutter_application_1/beans/Client.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Views/pageperso.dart';
+import 'package:localstorage/localstorage.dart';
 import 'dart:math';
 
-import 'package:flutter_application_1/Views/showdialogee.dart';
-import 'package:flutter_session/flutter_session.dart';
 
 
 
@@ -19,15 +23,21 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-   bool _validate = false;
-   bool _validate2 = false;
+  bool _validate = false;
+  bool _validate2 = false;
+  final TextEditingController phone =TextEditingController();
+  final TextEditingController password =TextEditingController();
+  String _baseUrl = "https://25e6a25d4d67.ngrok.io";
   var mainColor = Color(0xffffcea1);
-final TextEditingController phone =TextEditingController();
-final TextEditingController pass =TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
-     child: 
-    var halfSide = MediaQuery.of(context).size.width / 2;
+    child:
+    var halfSide = MediaQuery
+        .of(context)
+        .size
+        .width / 2;
     var side = halfSide * sqrt(2);
 
     var _borders = OutlineInputBorder(
@@ -37,17 +47,17 @@ final TextEditingController pass =TextEditingController();
         ),
         borderRadius: BorderRadius.circular(32));
 
-    return Scaffold( 
+    return Scaffold(
       backgroundColor: const Color(0xff435c59),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned.fill(
             child: Container(
-              color:   const Color(0xff435c59),
+              color: const Color(0xff435c59),
             ),
           ),
-        /*  Image.asset(
+          /*  Image.asset(
             'assets/bg.png',
             height: MediaQuery.of(context).size.height * 0.55,
             width: MediaQuery.of(context).size.width,
@@ -82,19 +92,23 @@ final TextEditingController pass =TextEditingController();
                             ),
                           ),
                           SizedBox(height: 16),
-                          
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                            
 
-                              controller: phone,
-                              keyboardType: TextInputType.phone,  
-                               style: TextStyle(
+                          Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.5,
+                            child: TextFormField(
+                              key: Key("login"),
+                              keyboardType: TextInputType.phone,
+                              controller:phone,
+                              style: TextStyle(
                                 color: Colors.white,
                               ),
                               decoration: InputDecoration(
-                                errorText: _validate ? 'userphone Can\'t Be Empty' : null,
+                                errorText: _validate
+                                    ? 'userphone Can\'t Be Empty'
+                                    : null,
                                 filled: false,
                                 contentPadding: EdgeInsets.all(10),
                                 enabledBorder: _borders,
@@ -109,17 +123,24 @@ final TextEditingController pass =TextEditingController();
                           ),
                           SizedBox(height: 16),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              controller: pass,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.5,
+                            child: TextFormField(
+                              key: Key("password"),
+                             // controller: pass,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
+                              controller: password,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                               decoration: InputDecoration(
                                 filled: false,
-                                errorText: _validate2 ? 'password Can\'t Be Empty' : null,
+                                errorText: _validate2
+                                    ? 'password Can\'t Be Empty'
+                                    : null,
                                 contentPadding: EdgeInsets.all(10),
                                 enabledBorder: _borders,
                                 focusedBorder: _borders,
@@ -134,8 +155,9 @@ final TextEditingController pass =TextEditingController();
                           SizedBox(height: 12),
                           FloatingActionButton(
                             onPressed: () {
-                              login(phone.text,pass.text);get("http://localhost:6354/all");
-                              
+                              authenticateUser(phone.text , password.text);
+                              // get("http://localhost:6354/all");
+
                             },
                             backgroundColor: Colors.white,
                             child: Icon(
@@ -155,10 +177,10 @@ final TextEditingController pass =TextEditingController();
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: RaisedButton(child: Text('Sign In'),
-             
-               )
+                padding: EdgeInsets.only(bottom: 12),
+                child: RaisedButton(child: Text('Sign In'),
+
+                )
             ),
           ),
           Align(
@@ -173,50 +195,103 @@ final TextEditingController pass =TextEditingController();
       ),
     );
   }
-  login(String username,String password) async {
-  
-   
-    
-     Client mappedData = Client(id:1,firstName: "uhoh",lastName:"ihguhui",email:"emali",password:"216848",phone:"16516",modified:false,solde:204165,factures:null);
-var m=jsonEncode(mappedData) ;
 
-print(m.runtimeType);
+ // login(String username, String password) async {
+//      Client mappedData = Client(id:1,firstName: "uhoh",lastName:"ihguhui",email:"emali",password:"216848",phone:"16516",modified:false,solde:204165,factures:null);
+// var m=jsonEncode(mappedData) ;
+//
+// print(m.runtimeType);
+//
+// //get client from api and l enregistrer via mappeddata /session
+// await FlutterSession().set('myclient', m);dynamic token2 = await FlutterSession().get("myclient");
+// Client item = Client.fromJson(token2);
+//    print(item.phone);
+//
+//    // print(token2.toString());
+//     if(mappedData.modified==false){
+//
+//  showAlertDialog(context);
+//  }
+//
+//     else{
+//       //get client and session
+//
+//     Navigator.push(
+//     context,
+//     MaterialPageRoute(builder: (context) => pageperso()),
+//   );
+  //}
 
-//get client from api and l enregistrer via mappeddata /session
+  Future<ApiResponse> authenticateUser(String phone, String password) async {
+    ApiResponse _apiResponse = new ApiResponse();
+
+    try {
+      Map data = {
+        'phone': phone,
+        'password': password,
+      };
+      String body = json.encode(data);
+
+      http.Response response = await http.post(Uri.encodeFull('${_baseUrl}client/initialAuth'), body: body ,headers: {
+        "Accept": "application/json",
+        "content-type":"application/json"
+      });
+
+
+
+      switch (response.statusCode) {
+        case 200:
+          _apiResponse.Data = Client.fromJson(json.decode(response.body));
+          final LocalStorage storage = new LocalStorage('response');
+          storage.setItem("client",response.body );
+         var client= storage.getItem("client");
+         String k=client.toString().substring(23,client.toString().length-10)+"}";
+         print(k); 
+         Client mappedData= Client.fromJson(jsonDecode(k));
+         var m=jsonEncode(mappedData) ;
+         Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Profile()),
+  );
+//
+ print(m.runtimeType);
+//
+// //get client from api and l enregistrer via mappeddata /session
 await FlutterSession().set('myclient', m);dynamic token2 = await FlutterSession().get("myclient");
 Client item = Client.fromJson(token2);
    print(item.phone);
+         // showAlertPopup(context,"done","welcome");
 
-   // print(token2.toString());
-    if(mappedData.modified==false){
-     
- showAlertDialog(context);
- }
-    
-    else{
-      //get client and session 
+          break;
+        case 401:
+          _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
+          showAlertPopup(context,"failed","login Failed ");
 
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => pageperso()),
-  );
+          break;
+        default:
+          _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
+          showAlertPopup(context,"failed","Check your phone or password");
+          break;
+      }
+    } on SocketException {
+      _apiResponse.ApiError = ApiError(error: "Server error. Please retry");
     }
-    
-  
-     //get client from api 
+    return _apiResponse;
+  }
+}
+
+
+     //get client from api
 
 
 
    // createLoginState(current.username, current.password);
-   
 
- 
 
-  } 
-  
+
 
    Future<dynamic> get(String url) async {
-    //Pass headers below 
+    //Pass headers below
     return http.get(url, headers: {"Authorization": "Some token"}).then(
         (http.Response response) {
       final int statusCode = response.statusCode;
@@ -230,12 +305,10 @@ Client item = Client.fromJson(token2);
   }
 
   postRequest () async {
- 
+
   }
-}
+
 /* Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => pageperso()),
   ); */
- 
- 
