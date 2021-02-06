@@ -69,3 +69,14 @@ await FlutterSession().set('myclient', m);
       return alert;
     },
   );}
+
+  /*
+    var client= storage.getItem("client");
+         String k=client.toString().substring(23,client.toString().length-10)+"}";
+         print(k); 
+         Client mappedData= Client.fromJson(jsonDecode(k));
+         var m=jsonEncode(mappedData) ;
+         Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Profile()),
+  );*/ 

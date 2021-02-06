@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_application_1/Views/Profile.dart';
-import 'package:flutter_application_1/Views/pageperso.dart';
 import 'package:flutter_application_1/Views/popUp.dart';
 import 'package:flutter_application_1/beans/ApiError.dart';
 import 'package:flutter_application_1/beans/ApiResponse.dart';
@@ -27,7 +26,7 @@ class _LoginState extends State<Login> {
   bool _validate2 = false;
   final TextEditingController phone =TextEditingController();
   final TextEditingController password =TextEditingController();
-  String _baseUrl = "https://25e6a25d4d67.ngrok.io";
+  String _baseUrl = "https://df7a27242a31.ngrok.io/";
   var mainColor = Color(0xffffcea1);
 
 
@@ -245,23 +244,29 @@ class _LoginState extends State<Login> {
           final LocalStorage storage = new LocalStorage('response');
           storage.setItem("client",response.body );
          var client= storage.getItem("client");
+         print(client);
          String k=client.toString().substring(23,client.toString().length-10)+"}";
+         print(k); 
+         Client mappedData= Client.fromJson(jsonDecode(k));
+         var m=jsonEncode(mappedData) ;await FlutterSession().set('myclient', m);
+         await FlutterSession().set('myclient', m);dynamic token2 = await FlutterSession().get("myclient");
+Client item = Client.fromJson(token2);
+   print(item.phone);
+
+
+         Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Profile()),
+  );
+       
+   /*      String k=client.toString().substring(23,client.toString().length-10)+"}";
          print(k); 
          Client mappedData= Client.fromJson(jsonDecode(k));
          var m=jsonEncode(mappedData) ;
          Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => Profile()),
-  );
-//
- print(m.runtimeType);
-//
-// //get client from api and l enregistrer via mappeddata /session
-await FlutterSession().set('myclient', m);dynamic token2 = await FlutterSession().get("myclient");
-Client item = Client.fromJson(token2);
-   print(item.phone);
-         // showAlertPopup(context,"done","welcome");
-
+  );*/
           break;
         case 401:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
